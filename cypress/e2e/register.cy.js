@@ -5,14 +5,14 @@ const createUser = require('../support/utils');
 const loginPage = new LoginPage();
 const registerPage = new RegisterPage();
 
+const user = createUser();
+
 describe('Register', () => {
   beforeEach(() => {
     loginPage.accessLoginPage();
   });
 
   it('Register - Success', () => {
-    const user = createUser();
-
     loginPage.accessRegisterPage();
     registerPage.fillForms(user.name, user.email, Cypress.env("PASSWORD_VALID"));
     registerPage.saveForm();
@@ -20,8 +20,6 @@ describe('Register', () => {
   });
 
   it('Register - Empty name', () => {
-    const user = createUser();
-
     loginPage.accessRegisterPage();
     registerPage.fillForms("", user.email, Cypress.env("PASSWORD_VALID"));
     registerPage.saveForm();
@@ -29,8 +27,6 @@ describe('Register', () => {
   });
 
   it('Register - Empty e-mail', () => {
-    const user = createUser();
-
     loginPage.accessRegisterPage();
     registerPage.fillForms(user.name, "", Cypress.env("PASSWORD_VALID"));
     registerPage.saveForm();
@@ -38,8 +34,6 @@ describe('Register', () => {
   });
 
   it('Register - Empty password', () => {
-    const user = createUser();
-
     loginPage.accessRegisterPage();
     registerPage.fillForms(user.name, user.email, "");
     registerPage.saveForm();
@@ -47,8 +41,6 @@ describe('Register', () => {
   });
 
   it('Register - Empty fields', () => {
-    const user = createUser();
-
     loginPage.accessRegisterPage();
     registerPage.fillForms("", "", "");
     registerPage.saveForm();
