@@ -1,3 +1,5 @@
+import { click, set, getText, getMessages } from "../support/actions";
+
 class LoginPage {
     selectorsList() {
         const selectors = { 
@@ -21,24 +23,23 @@ class LoginPage {
 
     loginWithUser(email, password) {
         if (email !== "") {
-            cy.get(this.selectorsList().emailField).type(email);
+            set(this.selectorsList().emailField, email);
         }
     
         if (password !== "") {
-            cy.get(this.selectorsList().passwordField).type(password);
+            set(this.selectorsList().passwordField, password)
         }
 
-        cy.get(this.selectorsList().loginBtn).click();
+        click(this.selectorsList().loginBtn)
     }
 
     checkErrorAlert(msg) {
-        cy.get(this.selectorsList().credentialsAlert).should('have.text', msg);
+        getText(this.selectorsList().credentialsAlert, msg)
     }
 
     checkErrorAlerts(messages) {
         messages.forEach((msg) => {
-            cy.get(this.selectorsList().credentialsAlert)
-              .should('have.text', msg);
+            getMessages(this.selectorsList().credentialsAlert, msg)
         });
     }
 }

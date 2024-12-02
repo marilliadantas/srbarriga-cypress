@@ -5,7 +5,7 @@ const loginPage = new LoginPage();
 const dashboardPage = new DashboardPage();
 
 describe('Login', () => {
-  it.only('Login - Success', () => {
+  it('Login - Success', () => {
     loginPage.accessLoginPage();
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), Cypress.env("PASSWORD_VALID"))
     dashboardPage.checkDashboardPage('/logar')
