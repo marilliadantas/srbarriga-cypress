@@ -11,10 +11,10 @@ jobs:
       - name: 🧪 Rodando os Testes do Cypress 🧪
         uses: cypress-io/github-action@v6
         env:
-          CYPRESS_EMAIL: ${{ secrets.EMAIL_VALID }}
-          CYPRESS_SENHA: ${{ secrets.PASSWORD_INVALID }}
-          CYPRESS_EMAIL_INVALIDO: ${{ secrets.EMAIL_INVALID }}
-          CYPRESS_SENHA_INVALIDA: ${{ secrets.PASSWORD_INVALID }}
+          CYPRESS_EMAIL_VALID: ${{ secrets.EMAIL_VALID }}
+          CYPRESS_PASSWORD_VALID: ${{ secrets.PASSWORD_VALID }}
+          CYPRESS_EMAIL_INVALID: ${{ secrets.EMAIL_INVALID }}
+          CYPRESS_PASSWORD_INVALID: ${{ secrets.PASSWORD_INVALID }}
 
       - name: ⛔ Upload dos arquivos em caso de falha 🎬
 
