@@ -7,30 +7,25 @@ function waitElement(el) {
   return cy.get(el, { timeout: 10000 }).should("be.visible");
 }
 
-function getText(el) {
+function getText(el, txt) {
   waitElement(el);
-  return cy.get(el).invoke("text");
+  return cy.get(el)
+    .should('be.visible')
+    .should('have.text', txt);
 }
 
 function set(el, text, option = {}) {
   waitElement(el);
   cy.get(el)
-    .clear()
-    .type(text, option);
+    .clear().type(text, option);
 }
 
-function getMessages(el) {
-  const mensagens = [];
-  return cy
-    .get(el)
-    .each(($el) => {
-      cy.wrap($el)
-        .invoke("text")
-        .then((text) => {
-          mensagens.push(text.trim());
-        });
-    })
-    .then(() => mensagens);
+function getMessages(el, expectedMessages) {
+  return cy.get(el).should('have.length', expectedMessages.length).each(($el, index) => {
+    cy.wrap($el)
+      .should('be.visible')
+      .should('have.text', expectedMessages[index]);
+  });
 }
 
 module.exports = {

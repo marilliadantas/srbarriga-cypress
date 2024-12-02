@@ -33,14 +33,12 @@ class LoginPage {
         click(this.selectorsList().loginBtn)
     }
 
-    checkErrorAlert(msg) {
+    verifyErrorAlert(msg) {
         getText(this.selectorsList().credentialsAlert, msg)
     }
 
-    checkErrorAlerts(messages) {
-        messages.forEach((msg) => {
-            getMessages(this.selectorsList().credentialsAlert, msg)
-        });
+    verifyErrorAlerts(messages) {
+        getMessages(this.selectorsList().credentialsAlert, messages);
     }
 }
 

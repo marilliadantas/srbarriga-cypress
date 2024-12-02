@@ -30,15 +30,15 @@ class RegisterPage {
         cy.get(this.selectorsList().registerBtn).click();
     }
 
-    checkCreateSuccess(msg) {
+    verifySuccessMessage(msg) {
         cy.get(this.selectorsList().alertSuccess).should('have.text', msg)
     }
 
-    checkErrorAlert(msg) {
+    verifyErrorMessage(msg) {
         cy.get(this.selectorsList().alertDanger).should('have.text', msg)
     }
 
-    checkErrorAlerts(messages) {
+    verifyErrorMessages(messages) {
         messages.forEach((msg, index) => {
             cy.get(this.selectorsList().alertDanger)
               .eq(index)

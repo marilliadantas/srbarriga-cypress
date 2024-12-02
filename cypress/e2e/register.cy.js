@@ -1,49 +1,48 @@
 import LoginPage from '../pages/loginPage'
 import RegisterPage from '../pages/registerPage';
-const createUser = require('../support/utils');
+import { createUser } from '../support/utils';
 
 const loginPage = new LoginPage();
 const registerPage = new RegisterPage();
-
 const user = createUser();
 
 describe('Register', () => {
   beforeEach(() => {
     loginPage.accessLoginPage();
+    loginPage.accessRegisterPage();
   });
 
-  it('Register - Success', () => {
-    loginPage.accessRegisterPage();
+  it('Register user successfully', () => {
     registerPage.fillForms(user.name, user.email, Cypress.env("PASSWORD_VALID"));
     registerPage.saveForm();
-    registerPage.checkCreateSuccess("Usuário inserido com sucesso");
+    registerPage.verifySuccessMessage("Usuário inserido com sucesso");
   });
 
-  it('Register - Empty name', () => {
-    loginPage.accessRegisterPage();
+  it('Empty name', () => {
     registerPage.fillForms("", user.email, Cypress.env("PASSWORD_VALID"));
     registerPage.saveForm();
-    registerPage.checkErrorAlert("Nome é um campo obrigatório");
+    registerPage.verifyErrorMessage("Nome é um campo obrigatório");
   });
 
-  it('Register - Empty e-mail', () => {
-    loginPage.accessRegisterPage();
+  it('Empty e-mail', () => {
     registerPage.fillForms(user.name, "", Cypress.env("PASSWORD_VALID"));
     registerPage.saveForm();
-    registerPage.checkErrorAlert("Email é um campo obrigatório");
+    registerPage.verifyErrorMessage("Email é um campo obrigatório");
   });
 
-  it('Register - Empty password', () => {
-    loginPage.accessRegisterPage();
+  it('Empty password', () => {
     registerPage.fillForms(user.name, user.email, "");
     registerPage.saveForm();
-    registerPage.checkErrorAlert("Senha é um campo obrigatório");
+    registerPage.verifyErrorMessage("Senha é um campo obrigatório");
   });
 
-  it('Register - Empty fields', () => {
-    loginPage.accessRegisterPage();
+  it('Empty fields', () => {
     registerPage.fillForms("", "", "");
     registerPage.saveForm();
-    registerPage.checkErrorAlerts(["Nome é um campo obrigatório", "Email é um campo obrigatório", "Senha é um campo obrigatório"]);
+    registerPage.verifyErrorMessages([
+      "Nome é um campo obrigatório", 
+      "Email é um campo obrigatório", 
+      "Senha é um campo obrigatório"
+    ]);
   });
 });

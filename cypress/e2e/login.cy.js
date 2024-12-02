@@ -5,41 +5,41 @@ const loginPage = new LoginPage();
 const dashboardPage = new DashboardPage();
 
 describe('Login', () => {
-  it('Login - Success', () => {
+  beforeEach(() => {
     loginPage.accessLoginPage();
+  });
+
+  it('Login successfully', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), Cypress.env("PASSWORD_VALID"))
-    dashboardPage.checkDashboardPage('/logar')
-    dashboardPage.checkAlertWelcome('Bem vindo, Mari!')
+    dashboardPage.verifyPageUrl('/logar')
+    dashboardPage.verifyWelcomeMessage('Bem vindo, Mari!')
   });
 
-  it('Login - Invalid e-mail', () => {
-    loginPage.accessLoginPage();
+  it('Invalid e-mail', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_INVALID"), Cypress.env("PASSWORD_VALID"))
-    loginPage.checkErrorAlert('Problemas com o login do usuário')
+    loginPage.verifyErrorAlert('Problemas com o login do usuário')
   });
 
-  it('Login - Invalid password', () => {
-    loginPage.accessLoginPage();
+  it('Invalid password', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), Cypress.env("PASSWORD_INVALID"))
-    loginPage.checkErrorAlert('Problemas com o login do usuário')
+    loginPage.verifyErrorAlert('Problemas com o login do usuário')
   });
 
-  it('Login - Empty e-mail', () => {
-    loginPage.accessLoginPage();
+  it('Empty e-mail', () => {
     loginPage.loginWithUser("", Cypress.env("PASSWORD_VALID"))
-    loginPage.checkErrorAlert('Email é um campo obrigatório')
+    loginPage.verifyErrorAlert('Email é um campo obrigatório')
   });
 
-  it('Login - Empty password', () => {
-    loginPage.accessLoginPage();
+  it('Empty password', () => {
     loginPage.loginWithUser(Cypress.env("EMAIL_VALID"), "")
-    loginPage.checkErrorAlert('Senha é um campo obrigatório')
+    loginPage.verifyErrorAlert('Senha é um campo obrigatório')
   });
 
-  it('Login - Empty fields', () => {
-    loginPage.accessLoginPage();
+  it('Empty fields', () => {
     loginPage.loginWithUser("", "")
-    loginPage.checkErrorAlerts(['Email é um campo obrigatório','Senha é um campo obrigatório'
+    loginPage.verifyErrorAlerts([
+      'Email é um campo obrigatório',
+      'Senha é um campo obrigatório'
     ]);
   });
 });
